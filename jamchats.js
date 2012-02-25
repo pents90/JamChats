@@ -19,7 +19,7 @@ function init() {
 
 function updatePageWithTrackDetails() {
 
-    var header = document.getElementById("header");
+    var header = document.getElementById("roomname");
 
     // This will be null if nothing is playing.
     var playerTrackInfo = player.track;
@@ -28,20 +28,23 @@ function updatePageWithTrackDetails() {
         header.innerText = "Nothing playing!";
     } else {
         var track = playerTrackInfo.data;
-        header.innerHTML = track.name + " on the album " + track.album.name + " by " + track.album.artist.name + ".";
+        //header.innerHTML = track.name + " on the album " + track.album.name + " by " + track.album.artist.name + ".";
+        header.innerHTML = track.album.artist.name.toUpperCase();
     }
 }
 
-////
+//// NOW stuff
 
     now.forumInfo = function(users) {   
         console.log("Received forum info.");
-        $('#content').html(users);
+        for (var i = 0; i < users.length; i++) {
+            $('#userlist').append('<li>' + users[i] + '</li>');
+        }
     };
 
     now.userJoined = function(name) {
         console.log("Received user joined.");
-        $('#content').append(name);
+        $('#userlist').append("<li>" + name + "</li>");
     };
 
     now.receiveMessage = function(name, text) {
@@ -52,5 +55,12 @@ function updatePageWithTrackDetails() {
         console.log("Logging in...");
         now.name = "Test #" + Math.random();
         now.join("M83");
+
+        $('#text').keypress(function(e) {
+            if(e.which == 13) {
+                jQuery('#send').click();
+                //jQuery(this).blur();
+            }
+        });
     });
 

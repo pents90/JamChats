@@ -11,15 +11,28 @@
 	<script src="http://192.168.1.52:8080/nowjs/now.js"></script>
 </head>
 <body onload="sp = getSpotifyApi(1); jamchats = sp.require('jamchats'); jamchats.init();">
-	<h1 id="header"></h1>
-	<h1>Users</h1>
-	<div id="content"></div>
-	<h1>Chat</h1>
-	<div id="chat">
+
+	<div id="chatroom">
+
+		<h1 id="roomname"></h1>
+
+		<div id="usercolumn" style="width: 200px; float:left; background:#222;">
+			<h3>Listeners</h3>
+			<ul id="userlist">
+			</ul>
+		</div>
+
+		<div id="content" style="width: #400px; float:left; background:#444;">
+			<h3>Chat</h3>
+			<div id="chat">
+			</div>
+			<div>				
+				<input type="text" id="text">
+				<input type="button" id="send" onclick="now.sendMessage($(text).val());" value="Send">
+			</div>
+		</div>
+
 	</div>
-	<div>
-		<input type="text" id="text">
-		<input type="button" onclick="now.sendMessage($(text).val());" value="Send">
-	</div>
+
 </body>
 </html>
