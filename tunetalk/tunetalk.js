@@ -1,5 +1,5 @@
 
-var users = [];
+var users = {};
 
 ////
 
@@ -23,23 +23,39 @@ nowjs.on('disconnect', function() {
 });
 
 everyone.now.join = function(artist) {
-	// todo - add artist -> group mapping
+	var group = nowjs.getGroup(artist);	
 	var userid = this.user.clientId;
-	// todo - set name on client
-	var name = this.now.name;
 	console.log("User '" + userid + "' joining with artist '" + artist + "'.");
-	// todo - implement client
-	this.now.forumInfo(users);
-	users.push(name);
-	// todo - implement client
-	everyone.now.userJoined(name);
+	if (artist == this.now.group) {
+		// Already in this group
+		return;
+	} else if (!(typeof this.now.group === "undefined")) {
+		console.log(" (Removing from '" + this.now.group + "' first)");
+		nowjs.getGroup(this.now.group).removeUser(userid);
+	}
+	group.addUser(userid);
+	var name = this.now.name;
+	var groupList = users[artist];
+	if (!groupList) {
+		groupList = [];
+	}
+	group.now.forumInfo(groupList);
+	groupList.push(this.now.name);
+	users[artist] = groupList;
+	this.now.group = artist;
+	group.now.userJoined(name);
+	console.log("Users now:");
+	console.log(users);
 }
 
 everyone.now.sendMessage = function(text) {
 	var name = this.now.name;
 	console.log("User '" + name + "' posts '" + text + "'.");
-	// todo - implement client
-	everyone.now.receiveMessage(name, text);
+	var groupName = this.now.group;
+	var group = nowjs.getGroup(groupName);
+	if (group) {
+		group.now.receiveMessage(name, text);
+	}
 }
 
 ////
