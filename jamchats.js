@@ -35,16 +35,20 @@ function updatePageWithTrackDetails() {
 
 //// NOW stuff
 
-    now.forumInfo = function(users) {   
+    now.forumInfo = function(users) {
         console.log("Received forum info.");
         for (var i = 0; i < users.length; i++) {
-            $('#userlist').append('<li>' + users[i] + '</li>');
+            if (!$('#'+users[i])) {
+                $('#userlist').append("<li id='"+users[i]+"'>" + users[i] + '</li>');
+            }
         }
     };
 
     now.userJoined = function(name) {
         console.log("Received user joined.");
-        $('#userlist').append("<li>" + name + "</li>");
+        if (!$('#'+name)) {
+            $('#userlist').append("<li id='"+name+"'>" + name + "</li>");
+        }
     };
 
     now.receiveMessage = function(name, text) {
@@ -52,9 +56,18 @@ function updatePageWithTrackDetails() {
         $("#chat").animate({ scrollTop: $("#chat").attr("scrollHeight") }, 1000);
     };
 
-    now.ready(function(){
-        console.log("Logging in...");
-        now.name = "Test #" + Math.random();
+    now.nameUpdate = function(name, username) {
+        console.log("Received name update: "+name+" to "+username);
+        var userObj = $('#'+name);
+        console.log("user: "+userObj);
+        userObj.text(username);
+    }
+
+    now.ready(function(){        
+        var anonUserId = sp.core.getAnonymousUserId();
+        anonUserId.replace(/#/g,'');
+        console.log("Logging in "+anonUserId);
+        now.name = anonUserId;
         now.join("M83");
 
         $('#text').keypress(function(e) {

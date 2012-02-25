@@ -27,7 +27,7 @@ everyone.now.join = function(artist) {
 	var userid = this.user.clientId;
 	// todo - set name on client
 	var name = this.now.name;
-	console.log("User '" + userid + "' joining with artist '" + artist + "'.");
+	console.log("User '" + name	 + "' joining with artist '" + artist + "'.");
 	// todo - implement client
 	this.now.forumInfo(users);
 	users.push(name);
@@ -40,6 +40,12 @@ everyone.now.sendMessage = function(text) {
 	console.log("User '" + name + "' posts '" + text + "'.");
 	// todo - implement client
 	everyone.now.receiveMessage(name, text);
+}
+
+everyone.now.setUsername = function(username) {
+	console.log(this.now.name+" is now known as "+username);
+	this.now.username = username;
+	this.now.nameUpdate(this.now.name, username);
 }
 
 ////

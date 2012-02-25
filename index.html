@@ -8,7 +8,7 @@
     <script src="jamchats.js"></script>
     <script src="jquery-1.5.2.min.js"></script>
     <script src="socket.io.js"></script>
-	<script src="http://192.168.1.52:8080/nowjs/now.js"></script>
+	<script src="http://10.0.1.19:8080/nowjs/now.js"></script>
 </head>
 <body onload="sp = getSpotifyApi(1); jamchats = sp.require('jamchats'); jamchats.init();">
 
@@ -28,6 +28,11 @@
 						<input type="text" id="text" width="auto">
 						<input type="button" id="send" onclick="now.sendMessage($(text).val());" value="Send">
 				</div>
+				<div>
+						<input type="text" id="username" width="auto">
+						<input type="button" id="send" onclick="now.setUsername($(username).val());" value="Set Username">
+				</div>
+
 			</div>
 
 			<div id="usercolumn" class="span3">
