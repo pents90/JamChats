@@ -3,6 +3,7 @@ var models = sp.require('sp://import/scripts/api/models');
 var player = models.player;
 var currentArtist = null;
 var nowReady = false;
+var userList = [];
 
 exports.init = init;
 
@@ -49,18 +50,33 @@ function updatePageWithTrackDetails() {
 
 //// NOW stuff
 
-    now.forumInfo = function(users) {   
-        console.log("Received forum info.");
+    function updateUserList() {
         $('#userlist').html('');
         for (var i = 0; i < users.length; i++) {
             $('#userlist').append('<li>' + users[i] + '</li>');
         }
+    }
+
+    now.forumInfo = function(users) {   
+        console.log("Received forum info.");
+        userList = users;
+        updateUserList();
     };
 
     now.userJoined = function(name) {
         console.log("Received user joined.");
         $('#userlist').append("<li>" + name + "</li>");
+        userList.push(name);
     };
+
+    now.userLeft = function(name) {
+        console.log("Received user left.");
+        var index = userList.indexOf(name);
+        if (index >= 0) {
+            userList.splice(index, 1);
+        }
+        updateUserList();
+    }
 
     now.receiveMessage = function(name, text) {
         $('#chat').append('<p><b>' + name + '</b> - ' + text + '</p>');

@@ -18,23 +18,43 @@ httpServer.listen(port);
 var nowjs = require("now");
 var everyone = nowjs.initialize(httpServer);
 
+function removeUserFromList(name, groupName) {
+	if (groupName) {
+		var group = nowjs.getGroup(groupName);
+		group.now.userLeft(name);
+	}
+	var userList = users[groupName];
+	if (userList) {
+		var index = userList.indexOf(name);
+        if (index >= 0) {
+            userList.splice(index, 1);
+        }
+	}
+}
+
 nowjs.on('disconnect', function() {
-	delete users[this.now.name];
+	var groupName = this.now.group;
+	var name = this.now.name;
+	console.log("User '" + name + "' left.");
+	removeUserFromList(name, groupName);
+	console.log("Users now:");
+	console.log(users);
 });
 
 everyone.now.join = function(artist) {
 	var group = nowjs.getGroup(artist);	
 	var userid = this.user.clientId;
+	var name = this.now.name;
 	console.log("User '" + userid + "' joining with artist '" + artist + "'.");
 	if (artist == this.now.group) {
 		// Already in this group
 		return;
 	} else if (!(typeof this.now.group === "undefined")) {
+		removeUserFromList(name, this.now.group);
 		console.log(" (Removing from '" + this.now.group + "' first)");
 		nowjs.getGroup(this.now.group).removeUser(userid);
 	}
 	group.addUser(userid);
-	var name = this.now.name;
 	var groupList = users[artist];
 	if (!groupList) {
 		groupList = [];
