@@ -1,0 +1,40 @@
+<html>
+<head>
+<script type="text/javascript" src="http://localhost:8080/nowjs/now.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	now.forumInfo = function(users) {	
+		console.log("Received forum info.");
+		$('#content').html(users);
+	};
+
+	now.userJoined = function(name) {
+		console.log("Received user joined.");
+		$('#content').append(name);
+	};
+
+	now.receiveMessage = function(name, text) {
+		$('#chat').append('<p><b>' + name + '</b> - ' + text + '</p>');
+	};
+
+    now.ready(function(){
+		console.log("Logging in...");
+		now.name = "Test #" + Math.random();
+    	now.join("M83");
+  	});
+
+
+</script>
+</head>
+<body>
+	<h1>Users</h1>
+	<div id="content"></div>
+	<h1>Chat</h1>
+	<div id="chat">
+	</div>
+	<div>
+		<input type="text" id="text">
+		<input type="button" onclick="now.sendMessage($(text).val());" value="Send">
+	</div>
+</body>
+</html>

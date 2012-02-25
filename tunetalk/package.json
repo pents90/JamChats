@@ -1,0 +1,7 @@
+{
+  "name": "TuneTalk",
+  "version": "0.0.1",
+  "dependencies": {
+    "now": "0.8.0"
+  }
+}

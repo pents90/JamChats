@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test App</title>
+    <link rel="stylesheet" href="sp://import/css/adam.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="jamchats.js"></script>
+    <script src="jquery-1.5.2.min.js"></script>
+    <script src="socket.io.js"></script>
+	<script src="http://192.168.1.52:8080/nowjs/now.js"></script>
+</head>
+<body onload="sp = getSpotifyApi(1); jamchats = sp.require('jamchats'); jamchats.init();">
+	<h1 id="header"></h1>
+	<h1>Users</h1>
+	<div id="content"></div>
+	<h1>Chat</h1>
+	<div id="chat">
+	</div>
+	<div>
+		<input type="text" id="text">
+		<input type="button" onclick="now.sendMessage($(text).val());" value="Send">
+	</div>
+</body>
+</html>
