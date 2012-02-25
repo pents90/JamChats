@@ -49,6 +49,7 @@ function updatePageWithTrackDetails() {
 
     now.receiveMessage = function(name, text) {
         $('#chat').append('<p><b>' + name + '</b> - ' + text + '</p>');
+        $("#chat").animate({ scrollTop: $("#chat").attr("scrollHeight") }, 1000);
     };
 
     now.ready(function(){
