@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Test App</title>
     <link rel="stylesheet" href="sp://import/css/adam.css">
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="bootstrap.css">
     <script src="jamchats.js"></script>
     <script src="jquery-1.5.2.min.js"></script>
     <script src="socket.io.js"></script>
@@ -12,27 +12,32 @@
 </head>
 <body onload="sp = getSpotifyApi(1); jamchats = sp.require('jamchats'); jamchats.init();">
 
-	<div id="chatroom">
+	<div id="chatroom" class="container">
+		<header class="jumbotron">
+			<h1 id="roomname"></h1>
+		</header>
 
-		<h1 id="roomname"></h1>
+		<div class="row-fluid">
 
-		<div id="usercolumn" style="width: 200px; float:left; background:#222;">
-			<h3>Listeners</h3>
-			<ul id="userlist">
-			</ul>
-		</div>
+			<div class="span1"></div>
 
-		<div id="content" style="width: #400px; float:left; background:#444;">
-			<h3>Chat</h3>
-			<div id="chat">
+			<div id="content" class="span6">
+				<h3>Chat</h3>
+				<div id="chat" class="well" style="height:400px; overflow: auto;"></div>
+				<div>
+						<input type="text" id="text" width="auto">
+						<input type="button" id="send" onclick="now.sendMessage($(text).val());" value="Send">
+				</div>
 			</div>
-			<div>				
-				<input type="text" id="text">
-				<input type="button" id="send" onclick="now.sendMessage($(text).val());" value="Send">
-			</div>
-		</div>
 
-	</div>
+			<div id="usercolumn" class="span3">
+				<h3>Listeners</h3>
+				<ul id="userlist">
+				</ul>
+			</div>
+
+		</div>
+	</div>	
 
 </body>
 </html>

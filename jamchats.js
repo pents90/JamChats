@@ -59,6 +59,7 @@ function updatePageWithTrackDetails() {
         $('#text').keypress(function(e) {
             if(e.which == 13) {
                 jQuery('#send').click();
+                $('#text').val('');
                 //jQuery(this).blur();
             }
         });
