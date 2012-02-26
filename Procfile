@@ -1,1 +1,1 @@
-web: node tunetalk.js
+web: node tunetalk/tunetalk.js
