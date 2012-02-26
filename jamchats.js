@@ -77,10 +77,14 @@ function updatePageWithTrackDetails() {
         $('#userlist').html('');
         for (var i = 0; i < userList.length; i++) {
             //if (!$('#'+users[i])) {
-                var name = userList[i];
-                var myname = getUsername(this.now.name);
+                var name = getUsername(userList[i]);
+                var myname = "";
+                if (now) {
+                    myname = getUsername(now.name);                    
+                }
+                console.log("My name: " + myname);
                 var classname = (name == myname) ? "me" : "them";
-                $('#userlist').append("<li id='"+userList[i]+"' class='" + classname + "'>" + getUsername(userList[i]) + '</li>');
+                $('#userlist').append("<li id='"+userList[i]+"' class='" + classname + "'>" + name + '</li>');
             //}
         }
     }
@@ -93,11 +97,8 @@ function updatePageWithTrackDetails() {
 
     now.userJoined = function(name) {
         console.log("Received user joined.");
-        //if (!$('#'+name)) {
-            var classname = (name == this.now.name) ? "me" : "other";
-            $('#userlist').append("<li id='"+name+"' class='" + classname + "'>" + getUsername(name) + '</li>');
-            userList.push(name);
-        //}
+        userList.push(name);
+        updateUserList();
     };
 
     now.userLeft = function(name) {
