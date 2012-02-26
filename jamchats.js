@@ -84,14 +84,15 @@ function updatePageWithTrackDetails() {
                 }
                 console.log("My name: " + myname);
                 var iAmHere = (name == myname);
-                if (iAmHere) {
-                    $('#namecontrols').hide();
-                    $('#messagecontrols').show();
-                }
                 var classname = iAmHere ? "me" : "them";
                 $('#userlist').append("<li id='"+userList[i]+"' class='" + classname + "'>" + name + '</li>');
             //}
         }
+    }
+
+    function clearNameStuff() {
+        $('#namecontrols').hide();
+        $('#messagecontrols').show();        
     }
 
     now.forumInfo = function(users) {   
