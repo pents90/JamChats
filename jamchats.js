@@ -83,7 +83,12 @@ function updatePageWithTrackDetails() {
                     myname = getUsername(now.name);                    
                 }
                 console.log("My name: " + myname);
-                var classname = (name == myname) ? "me" : "them";
+                var iAmHere = (name == myname);
+                if (iAmHere) {
+                    $('#namecontrols').hide();
+                    $('#messagecontrols').show();
+                }
+                var classname = iAmHere ? "me" : "them";
                 $('#userlist').append("<li id='"+userList[i]+"' class='" + classname + "'>" + name + '</li>');
             //}
         }

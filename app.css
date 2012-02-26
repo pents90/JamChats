@@ -74,7 +74,13 @@ body {
 }
 
 
-#controls {
+#namecontrols {
+    clear: both;
+    width: 100%;
+}
+
+#messagecontrols {
+    display: none;
     clear: both;
     width: 100%;
 }
