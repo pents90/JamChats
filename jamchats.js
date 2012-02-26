@@ -21,6 +21,14 @@ function init() {
     });
 }
 
+function doArtistImage(artist) {
+    var url = "http://developer.echonest.com/api/v4/artist/images?api_key=WXPZI2UHOB3XPBUE6&name=" + artist + "&format=json&results=1&start=0&license=unknown";
+    $.get(url, function(data) {
+        var src = data.response.images[0].url;
+        //$('#image').html('<img src"' + src + '">');
+    })
+}
+
 function updatePageWithTrackDetails() {
 
     console.log('New track.');
@@ -35,6 +43,10 @@ function updatePageWithTrackDetails() {
         var track = playerTrackInfo.data;
         //header.innerHTML = track.name + " on the album " + track.album.name + " by " + track.album.artist.name + ".";
         var artist = track.album.artist.name.toUpperCase();
+        console.log("Image " + track.album.cover);
+        //$('#image').html('<img src="' + track.album.cover + '">');
+        $('#background').attr("style", "background-image: url('" + track.album.cover + "');");
+
         // Clear old chat
         if (artist != currentArtist) {
             $('#chat').html('');
@@ -52,8 +64,8 @@ function updatePageWithTrackDetails() {
 
     function updateUserList() {
         $('#userlist').html('');
-        for (var i = 0; i < users.length; i++) {
-            $('#userlist').append('<li>' + users[i] + '</li>');
+        for (var i = 0; i < userList.length; i++) {
+            $('#userlist').append('<li>' + userList[i] + '</li>');
         }
     }
 
