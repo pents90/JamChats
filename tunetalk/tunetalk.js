@@ -72,11 +72,11 @@ everyone.now.join = function(artist) {
 
 everyone.now.sendMessage = function(text) {
 	var name = this.now.name;
-	console.log("User '" + name + "' posts '" + text + "'.");
+	console.log("User '" + everyone.now.usernames[name] + "' posts '" + text + "'.");
 	var groupName = this.now.group;
 	var group = nowjs.getGroup(groupName);
 	if (group) {
-		group.now.receiveMessage(name, text);
+		group.now.receiveMessage(everyone.now.usernames[name], text);
 	}
 }
 

@@ -77,7 +77,10 @@ function updatePageWithTrackDetails() {
         $('#userlist').html('');
         for (var i = 0; i < userList.length; i++) {
             //if (!$('#'+users[i])) {
-                $('#userlist').append("<li id='"+userList[i]+"'>" + getUsername(userList[i]) + '</li>');
+                var name = userList[i];
+                var myname = getUsername(this.now.name);
+                var classname = (name == myname) ? "me" : "them";
+                $('#userlist').append("<li id='"+userList[i]+"' class='" + classname + "'>" + getUsername(userList[i]) + '</li>');
             //}
         }
     }
@@ -91,7 +94,8 @@ function updatePageWithTrackDetails() {
     now.userJoined = function(name) {
         console.log("Received user joined.");
         //if (!$('#'+name)) {
-            $('#userlist').append("<li id='"+name+"'>" +getUsername(name) + "</li>");
+            var classname = (name == this.now.name) ? "me" : "other";
+            $('#userlist').append("<li id='"+name+"' class='" + classname + "'>" + getUsername(name) + '</li>');
             userList.push(name);
         //}
     };
@@ -106,7 +110,9 @@ function updatePageWithTrackDetails() {
     }
 
     now.receiveMessage = function(name, text) {
-        $('#chat').append('<p><b>' + name + '</b> - ' + text + '</p>');
+        var myname = getUsername(this.now.name);
+        var classname = (name == myname) ? "me" : "them";
+        $('#chat').append('<div class="message"><span class="' + classname + '">' + name + '</span>: ' + text + '</div>')
         $("#chat").animate({ scrollTop: $("#chat").attr("scrollHeight") }, 1000);
     };
 
