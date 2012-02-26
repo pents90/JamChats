@@ -32,7 +32,7 @@ function removeUserFromList(name, groupName) {
 	}
 }
 
-everyone.now.usernames = [];
+everyone.now.usernames = [{"bogus": "bogus"}];
 
 nowjs.on('disconnect', function() {
 	var groupName = this.now.group;
