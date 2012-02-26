@@ -1,1 +1,1 @@
-web: cd tunetalk; node tunetalk.js
+web: node tunetalk.js
