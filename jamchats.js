@@ -125,9 +125,7 @@ function updatePageWithTrackDetails() {
 
     now.nameUpdate = function(name, username) {
         console.log("Received name update: "+name+" to "+username);
-        var userObj = $('#'+name);
-        console.log("user: "+userObj);
-        userObj.text(username);
+        updateUserList();
     }
 
     now.ready(function(){        
